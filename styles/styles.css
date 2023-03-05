@@ -1,0 +1,89 @@
+/* global */
+
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Marcellus|DM+Sans');
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+@font-face {
+  font-family: "Bubble";
+  src: url(../fonts/04B_30__.TTF);
+}
+
+@font-face {
+  font-family: "Dogica";
+  src: url(../fonts/dogica.otf);
+}
+
+@font-face {
+  font-family: "Mon";
+  src: url(../fonts/Monster.otf);
+}
+
+:root {
+    --border-color: #291D4D;
+    --dialog-background: #FFF3B4;
+
+    --menu-background: #FFE8D2;
+    --menu-border-color: #A48465;
+    --menu-font-color: #3A160D;
+    --menu-selected-background: #7fc2ff;
+}
+
+
+
+
+body {
+  /* margin: 0 auto;
+  max-width: 50rem;
+  font-family: "Helvetica", "Arial", sans-serif;
+  line-height: 1.5;
+  padding: 4rem 1rem;
+  color: #555; */
+  background:#333;
+  padding:0;
+  margin:0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.title {
+  width: 80%;
+  margin: auto;
+  margin-left: 15%;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: #FFE8D2;
+  font-family  : "Bubble", monospace;
+  position: relative;
+}
+
+
+.game-container{
+  position: relative;
+  width: 352px;
+  height: 198px;
+  outline: 1px solid #A48465;
+  margin: 0 auto;
+
+  transform: scale(3) translateY(35%);
+
+}
+
+.game-container canvas {
+  image-rendering: pixelated;
+}
+
+.subtitle {
+  width: 70%;
+  margin: auto;
+  margin-left: 15%;
+  margin-top: 30%;
+  margin-bottom: 0;
+  font-size: 8px;
+  font-size: xx-small;
+  line-height: 30px;
+  color: #A48465;
+  font-family: "Dogica", monospace;
+  position: relative;
+}
+
