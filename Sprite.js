@@ -10,7 +10,7 @@ class Sprite {
 
         // shadow
         this.shadow = new Image();
-        this.useShadow = true; //config.useShadow || false
+        this.useShadow = config.useShadow || true;
         if (this.useShadow) {
             this.shadow.src = "./images/shadow.png";
         }
@@ -31,7 +31,7 @@ class Sprite {
             "walk-up": [ [1,2], [0,2], [3,2], [0,2] ],
             "walk-left": [ [1,3], [0,3], [3,3], [0,3] ]
         }
-        this.currentAnimation = "idle-left" //config.currentAnimation || "idle-down"; // which animation frame
+        this.currentAnimation = config.currentAnimation || "idle-left" //config.currentAnimation || "idle-down"; // which animation frame
         this.currentAnimationFrame = 0;
 
         this.animationFrameLimit = config.animationFrameLimit || 4 ; // how many game loop frames of one cut of sprite sheet (increased will slower), default 16

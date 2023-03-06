@@ -77,6 +77,12 @@ class OverworldMap {
         });
         if (!this.isCutscenePlaying && match && match.talking.length) {
             this.startCutscene(match.talking[0].events);
+            // const relevantScenario = match.talking.find(scenario => {
+            //     return (scenario.required || []).every(sf => {
+            //         return PlayerState.storyFlags[sf]
+            //     })
+            // })
+            // relevantScenario && this.startCutscene(relevantScenario.events);
         }
     }
 
@@ -146,6 +152,12 @@ window.OverworldMaps = {
                     { type: "walk", direction: "up" },
                 ],
                 talking: [
+                    // {
+                    //     required: ["SERVED_CORRECT"],
+                    //     events: [
+                    //         {type: "textMessage", text: "Eric: Oh thanks!", faceHero: "npc"},
+                    //     ]
+                    // },
                     {
                         events: [
                             {type: "textMessage", text: "You: Hey, sorry to bother you,", faceHero:"npcB"},
@@ -175,6 +187,11 @@ window.OverworldMaps = {
                     },
                 ]
             }),
+            FoodStone:new FoodStone({
+                x: utils.withGrid(2),
+                y: utils.withGrid(4),
+                storyFlag: "USED_CAKE"
+            })
         },
         walls: {
             // dynamic key -> evaluate to string
