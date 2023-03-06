@@ -84,6 +84,6 @@ body {
   line-height: 30px;
   color: #A48465;
   font-family: "Dogica", monospace;
-  position: relative;
+  position: fixed;
 }
 

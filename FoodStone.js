@@ -8,6 +8,7 @@ class FoodStone extends GameObject {
             currentAnimation: "idle-down",
         });
         this.storyFlag = config.storyFlag;
+        console.log(config.storyFlag);
         this.talking = [
             {
                 required: [this.storyFlag],
