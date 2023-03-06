@@ -77,13 +77,13 @@ body {
   width: 70%;
   margin: auto;
   margin-left: 15%;
-  margin-top: 30%;
+  margin-top: 26rem;
   margin-bottom: 0;
   font-size: 8px;
   font-size: xx-small;
   line-height: 30px;
   color: #A48465;
   font-family: "Dogica", monospace;
-  position: fixed;
+  position: relative;
 }
 

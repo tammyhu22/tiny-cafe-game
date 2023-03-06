@@ -76,13 +76,12 @@ class OverworldMap {
             return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`
         });
         if (!this.isCutscenePlaying && match && match.talking.length) {
-            this.startCutscene(match.talking[0].events);
-            // const relevantScenario = match.talking.find(scenario => {
-            //     return (scenario.required || []).every(sf => {
-            //         return PlayerState.storyFlags[sf]
-            //     })
-            // })
-            // relevantScenario && this.startCutscene(relevantScenario.events);
+            const relevantScenario = match.talking.find(scenario => {
+                return (scenario.required || []).every(sf => {
+                    return PlayerState.storyFlags[sf]
+                })
+            })
+            relevantScenario && this.startCutscene(relevantScenario.events);
         }
     }
 
