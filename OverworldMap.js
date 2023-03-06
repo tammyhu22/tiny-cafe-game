@@ -78,7 +78,7 @@ class OverworldMap {
         if (!this.isCutscenePlaying && match && match.talking.length) {
             const relevantScenario = match.talking.find(scenario => {
                 return (scenario.required || []).every(sf => {
-                    return PlayerState.storyFlags[sf]
+                    return playerState.storyFlags[sf]
                 })
             })
             relevantScenario && this.startCutscene(relevantScenario.events);
@@ -189,7 +189,8 @@ window.OverworldMaps = {
             FoodStone:new FoodStone({
                 x: utils.withGrid(2),
                 y: utils.withGrid(4),
-                storyFlag: "USED_CAKE"
+                storyFlag: "USED_CAKE",
+                food: ["cake"]
             })
         },
         walls: {

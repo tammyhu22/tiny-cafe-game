@@ -59,6 +59,16 @@ class OverworldEvent {
         message.init( document.querySelector(".game-container") ) // passing where it should inject the text
     }
 
+    addStoryFlag(resolve) {
+        window.playerState.storyFlags[this.event.flag] = true;
+        resolve();
+      }
+
+    //   addToTray(resolve) {
+        
+    //     resolve();
+    //   }
+
     init() {
         return new Promise(resolve => {
             this[this.event.type](resolve)

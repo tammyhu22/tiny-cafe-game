@@ -8,6 +8,7 @@ class FoodStone extends GameObject {
             currentAnimation: "idle-down",
         });
         this.storyFlag = config.storyFlag;
+        this.food = config.food;
         console.log(config.storyFlag);
         this.talking = [
             {
@@ -19,6 +20,7 @@ class FoodStone extends GameObject {
             {
                 events:[
                     { type: "textMessage", text: "You picked up a cake..."},
+                  //  { type: "addToTray", food: this.food },
                     { type: "addStoryFlag", flag: this.storyFlag }
                 ]
             }

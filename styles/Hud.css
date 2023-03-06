@@ -1,0 +1,6 @@
+.Hud {
+    position: absolute;
+    left:2px;
+    top:10px;
+    image-rendering: pixelated;
+  }

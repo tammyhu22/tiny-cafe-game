@@ -5,7 +5,7 @@ window.FoodTypes = {
     bread: "bread",
 }
 
-window.food = {
+window.Food = {
     "cake" : {
         name: "Strawberry Cake",
         type: FoodTypes.cake,
