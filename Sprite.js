@@ -10,7 +10,12 @@ class Sprite {
 
         // shadow
         this.shadow = new Image();
-        this.useShadow = config.useShadow || true;
+        if("useShadow" in config) {
+            this.useShadow = config.useShadow;
+        } else {
+            this.useShadow = true;
+        }
+
         if (this.useShadow) {
             this.shadow.src = "./images/shadow.png";
         }

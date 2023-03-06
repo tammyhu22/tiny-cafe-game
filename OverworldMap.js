@@ -55,8 +55,6 @@ class OverworldMap {
                 event: events[i],
                 map: this,
             })
-            console.log(events.length);
-            console.log(i);
 
             await eventHandler.init();
         }
@@ -88,7 +86,6 @@ class OverworldMap {
     checkForFootstepCutscene() {
         const hero = this.gameObjects["hero"];
         const match = this.cutsceneSpaces[ `${hero.x},${hero.y}` ];
-        console.log({ match });
         if (!this.isCutscenePlaying && match) {
             this.startCutscene(match[0].events);
         }
@@ -186,11 +183,21 @@ window.OverworldMaps = {
                     },
                 ]
             }),
-            FoodStone:new FoodStone({
+            Cake:new FoodStone({
+                src: "./images/cake.png",
                 x: utils.withGrid(2),
                 y: utils.withGrid(4),
                 storyFlag: "USED_CAKE",
-                food: ["cake"]
+                food: ["cake"],
+                inventoryUpdate: "INVENTORY_FULL"
+            }),
+            Donut:new FoodStone({
+                src: "./images/donut.png",
+                x: utils.withGrid(3),
+                y: utils.withGrid(4),
+                storyFlag: "USED_DONUT",
+                food: ["donut"],
+                inventoryUpdate: "INVENTORY_FULL"
             })
         },
         walls: {

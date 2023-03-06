@@ -61,8 +61,14 @@ class OverworldEvent {
 
     addStoryFlag(resolve) {
         window.playerState.storyFlags[this.event.flag] = true;
+        console.log(window.playerState.storyFlags);
         resolve();
       }
+
+    disableStoryFlag(resolve) {
+        window.playerState.storyFlags[this.event.flag] = false;
+        resolve();
+    }
 
     //   addToTray(resolve) {
         
