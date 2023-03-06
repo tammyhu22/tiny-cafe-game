@@ -62,11 +62,17 @@ class OverworldEvent {
     addStoryFlag(resolve) {
         window.playerState.storyFlags[this.event.flag] = true;
         console.log(window.playerState.storyFlags);
+        window.playerState.currentFood = this.event.food;
+        console.log(window.playerState.currentFood);
+        // const display = new Hud();
+        // display.init();
         resolve();
       }
 
     disableStoryFlag(resolve) {
         window.playerState.storyFlags[this.event.flag] = false;
+        console.log(window.playerState.storyFlags);
+        window.playerState.currentFood = "";
         resolve();
     }
 
@@ -74,6 +80,18 @@ class OverworldEvent {
         
     //     resolve();
     //   }
+
+    addToHud (resolve) {
+        if(window.playerState.storyFlags["INVENTORY_FULL"] = true) {
+            // if one of these "USED_DONUT, USED_CAKE, USED_COFFEE, USED_BREAD = TRUE"
+            // display donut, if used_donut is true, or display cake if used_cake is true
+            // QUESTION: IS THERE A WAY TO REPLACE A CONSTANT
+        } else {
+            // show nothing in top right corner
+            return;
+        }
+        resolve();
+    }
 
     init() {
         return new Promise(resolve => {

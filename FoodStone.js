@@ -5,7 +5,7 @@ class FoodStone extends GameObject {
         this.sprite = new Sprite ({
             gameObject: this,
             src: this.src,
-            useShadow: false, // why is shadow still there
+            useShadow: false,
             currentAnimation: "idle-down",
         });
         this.storyFlag = config.storyFlag;
@@ -22,7 +22,8 @@ class FoodStone extends GameObject {
                 events:[
                     { type: "textMessage", text: "You picked up a "+`${this.food}`+"..."},
                     { type: "addStoryFlag", flag: this.inventoryUpdate},
-                    { type: "addStoryFlag", flag: this.storyFlag }
+                    { type: "addStoryFlag", flag: this.storyFlag, food: this.food },
+              //      { type: "disableStoryFlag", flag: this.storyFlag }, // disabling a flag
                 ]
             }
         ]

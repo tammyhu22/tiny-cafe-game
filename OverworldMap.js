@@ -148,12 +148,27 @@ window.OverworldMaps = {
                     { type: "walk", direction: "up" },
                 ],
                 talking: [
-                    // {
-                    //     required: ["SERVED_CORRECT"],
-                    //     events: [
-                    //         {type: "textMessage", text: "Eric: Oh thanks!", faceHero: "npc"},
-                    //     ]
-                    // },
+                    {
+                        required: ["USED_CAKE"],
+                        events: [
+                            {type: "textMessage", text: "Eric: Oh thanks!", faceHero: "npcB"},
+                            {type: "disableStoryFlag", flag: "USED_CAKE"},
+                            {type: "disableStoryFlag", flag: "INVENTORY_FULL"},
+                            {type:"addStoryFlag", flag: "CAKE_DONE"}
+                        ]
+                    },
+                    {
+                        required: ["INVENTORY_FULL"],
+                        events: [
+                            {type: "textMessage", text: "Eric: um this isn't what I wanted", faceHero: "npcB"},
+                        ]
+                    },
+                    {
+                        required: ["CAKE_DONE"],
+                        events: [
+                            {type: "textMessage", text: "Eric: This cake is great!", faceHero: "npcB"},
+                        ]
+                    },
                     {
                         events: [
                             {type: "textMessage", text: "You: Hey, sorry to bother you,", faceHero:"npcB"},
@@ -198,6 +213,22 @@ window.OverworldMaps = {
                 storyFlag: "USED_DONUT",
                 food: ["donut"],
                 inventoryUpdate: "INVENTORY_FULL"
+            }),
+            Bread:new FoodStone({
+                src: "./images/bread.png",
+                x: utils.withGrid(4),
+                y: utils.withGrid(4),
+                storyFlag: "USED_BREAD",
+                food: ["bread"],
+                inventoryUpdate: "INVENTORY_FULL",
+            }),
+            Coffee:new FoodStone({
+                src: "./images/coffee.png",
+                x: utils.withGrid(5),
+                y: utils.withGrid(1),
+                storyFlag: "USED_COFFEE",
+                food: ["coffee"],
+                inventoryUpdate: "INVENTORY_FULL",
             })
         },
         walls: {

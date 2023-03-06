@@ -3,6 +3,7 @@ class PlayerState {
         this.lineup = [];
         this.storyFlags = {
         }
+        this.currentFood = "";
     }
 
     // addPizza(pizzaId) {
