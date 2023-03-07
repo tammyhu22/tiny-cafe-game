@@ -188,6 +188,12 @@ window.OverworldMaps = {
                 ],
                 talking: [
                     {
+                        required: ["CAKE_DONE"],
+                        events: [
+                            {type: "textMessage", text: "Manager: hey nice, I see some happy customers", faceHero: "npcC"},
+                        ]
+                    },
+                    {
                         events: [
                             {type: "textMessage", text: "Manager: If you have any questions,", faceHero:"npcC"},
                             {type: "textMessage", text: "just don't ask me"},
