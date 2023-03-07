@@ -116,7 +116,7 @@ window.OverworldMaps = {
                 x: utils.withGrid(5),
                 y: utils.withGrid(6),
             }),
-            npcA: new Person({
+            npcA: new Person({ // KELLY THE COFFEE GIRL
                 x: utils.withGrid(10),
                 y: utils.withGrid(8),
                 src: "./images/npc1.png",
@@ -128,15 +128,44 @@ window.OverworldMaps = {
                 ],
                 talking: [
                     {
+                        required: ["USED_COFFEE"],
                         events: [
-                            {type: "textMessage", text: "Kelly: can I help you?", faceHero:"npcA"},
-                            {type: "textMessage", text: "I'm busy"},
+                            {type: "textMessage", text: "Kelly: Oh, finally.", faceHero: "npcA"},
+                            {type: "textMessage", text: "I needed this."},
+                            {type: "disableStoryFlag", flag: "USED_COFFEE"},
+                            {type: "disableStoryFlag", flag: "INVENTORY_FULL"},
+                            {type:"addStoryFlag", flag: "COFFEE_DONE"}
+                        ]
+                    },
+                    {
+                        required: ["CAKE_DONE"] && ["BREAD_DONE"] && ["DONUT_DONE"],
+                        events: [
+                            {type: "textMessage", text: "You: Would you mind reminding me what you ordered?", faceHero: "npcA"},
+                            {type: "textMessage", text: "Kelly: I got a pumpkin spice latte."},
+                        ]
+                    },
+                    {
+                        required: ["INVENTORY_FULL"],
+                        events: [
+                            {type: "textMessage", text: "Kelly: That's not my order.", faceHero: "npcA"},
+                        ]
+                    },
+                    {
+                        required: ["COFFEE_DONE"],
+                        events: [
+                            {type: "textMessage", text: "Kelly: That coffee really helped, thanks.", faceHero: "npcA"},
+                        ]
+                    },
+                    {
+                        events: [
+                            {type: "textMessage", text: "Kelly: Can I help you?", faceHero:"npcA"},
+                            {type: "textMessage", text: "I'm on the phone right now, talk to me later."},
                             {who: "hero", type: "walk", direction: "up"},
                         ]
                     },
                 ]
             }),
-            npcB: new Person({
+            npcB: new Person({ // ERIC THE CAKE GUY
                 x: utils.withGrid(10),
                 y: utils.withGrid(3),
                 src: "./images/npc3.png",
@@ -152,6 +181,7 @@ window.OverworldMaps = {
                         required: ["USED_CAKE"],
                         events: [
                             {type: "textMessage", text: "Eric: Oh thanks!", faceHero: "npcB"},
+                            {type: "textMessage", text: "You're new here right? Keep up the great work!"},
                             {type: "disableStoryFlag", flag: "USED_CAKE"},
                             {type: "disableStoryFlag", flag: "INVENTORY_FULL"},
                             {type:"addStoryFlag", flag: "CAKE_DONE"}
@@ -173,13 +203,13 @@ window.OverworldMaps = {
                         events: [
                             {type: "textMessage", text: "You: Hey, sorry to bother you,", faceHero:"npcB"},
                             {type: "textMessage", text: "May I ask what you ordered?"},
-                            {type: "textMessage", text: "Eric: Uh..one of your lattes and cake I think."},
+                            {type: "textMessage", text: "Eric: Uh..just one of those strawberry lemon cakes I think."},
                             {type: "textMessage", text: "You: Ok thanks!"},
                         ]
                     },
                 ]
             }),
-            npcC: new Person({
+            npcC: new Person({ // MANAGER
                 x: utils.withGrid(2),
                 y: utils.withGrid(7),
                 src: "./images/erio.png",
@@ -190,7 +220,16 @@ window.OverworldMaps = {
                     {
                         required: ["CAKE_DONE"],
                         events: [
-                            {type: "textMessage", text: "Manager: hey nice, I see some happy customers", faceHero: "npcC"},
+                            {type: "textMessage", text: "Manager: Hey! How was your first day?", faceHero: "npcC"},
+                            {type: "textMessage", text: "You: Pretty interesting. I think it went well!"},
+                            {type: "textMessage", text: "Manager: Ah, well congrats on your first day. I'll see you tomorrow at 7."},
+                            {type: "textMessage", text: "You finished the game!"},
+                        ]
+                    },
+                    {
+                        required: ["COFFEE_DONE"],
+                        events: [
+                            {type: "textMessage", text: "Manager: Half your shift's over! Chop, chop!", faceHero: "npcC"},
                         ]
                     },
                     {
@@ -200,6 +239,103 @@ window.OverworldMaps = {
                             {type: "textMessage", text: "I'm too busy wiping these tables, haha", faceHero:"npcC"},
                             {who: "hero", type: "walk", direction: "up"},
                             {who: "npcC", type: "stand", direction: "down"},
+                        ]
+                    },
+                ]
+            }),
+            npcD: new Person({
+                x: utils.withGrid(13),
+                y: utils.withGrid(5),
+                src: "./images/npc2.png",
+                behaviorLoop: [ // idle behavior loop
+                    { type: "walk", direction: "right" },
+                    { type: "stand", direction: "down", time: 800 },
+                    { type: "walk", direction: "left" },
+                    { type: "walk", direction: "left" }, 
+                    { type: "walk", direction: "left" }, 
+                    { type: "stand", direction: "up", time: 300},
+                    { type: "walk", direction: "right" },
+                    { type: "walk", direction: "right" },
+                ],
+                talking: [
+                    {
+                        required: ["USED_DONUT"],
+                        events: [
+                            {type: "textMessage", text: "Drew: DONUTTTTT!!!", faceHero: "npcD"},
+                            {type: "textMessage", text: "THANKS MAN, this looks AMAZING!!!"},
+                            {type: "disableStoryFlag", flag: "USED_DONUT"},
+                            {type: "disableStoryFlag", flag: "INVENTORY_FULL"},
+                            {type:"addStoryFlag", flag: "DONUT_DONE"}
+                        ]
+                    },
+                    {
+                        required: ["INVENTORY_FULL"],
+                        events: [
+                            {type: "textMessage", text: "Drew: hmm...this doesn't look like my order", faceHero: "npcD"},
+                        ]
+                    },
+                    {
+                        required: ["DONUT_DONE"],
+                        events: [
+                            {type: "textMessage", text: "Drew: nom nom nom nom DONUTS4LIFE", faceHero: "npcD"},
+                        ]
+                    },
+                    {
+                        events: [
+                            {type: "textMessage", text: "You: Hi there.", faceHero:"npcD"},
+                            {type: "textMessage", text: "Drew: Howdy!"},
+                            {type: "textMessage", text: "Just wanted to uh, double check what you ordered"},
+                            {type: "textMessage", text: "Drew: oh, just one of those round things with the HOLESSSS"},
+                            {type: "textMessage", text: "You: Alright... comin' right up!"},
+                        ]
+                    },
+                ]
+            }),
+            npcE: new Person({
+                x: utils.withGrid(8),
+                y: utils.withGrid(7),
+                src: "./images/npc7.png",
+                behaviorLoop: [ // idle behavior loop
+                    { type: "walk", direction: "left" },
+                    { type: "walk", direction: "left" },
+                    { type: "walk", direction: "up" },
+                    { type: "stand", direction: "up", time: 300},
+                    { type: "walk", direction: "right" },
+                    { type: "walk", direction: "right" }, 
+                    { type: "walk", direction: "right" }, 
+                    { type: "walk", direction: "down" }, 
+                    { type: "stand", direction: "right", time: 600},
+                    { type: "walk", direction: "left" },
+                ],
+                talking: [
+                    {
+                        required: ["USED_BREAD"],
+                        events: [
+                            {type: "textMessage", text: "Jenny: Oh my, this bread smells great.", faceHero: "npcE"},
+                            {type: "textMessage", text: "Thanks a lot!"},
+                            {type: "disableStoryFlag", flag: "USED_BREAD"},
+                            {type: "disableStoryFlag", flag: "INVENTORY_FULL"},
+                            {type:"addStoryFlag", flag: "BREAD_DONE"}
+                        ]
+                    },
+                    {
+                        required: ["INVENTORY_FULL"],
+                        events: [
+                            {type: "textMessage", text: "Jenny: think you have the wrong person, kid", faceHero: "npcE"},
+                        ]
+                    },
+                    {
+                        required: ["BREAD_DONE"],
+                        events: [
+                            {type: "textMessage", text: "Jenny: mmm, I'm coming back tomorrow for this.", faceHero: "npcE"},
+                        ]
+                    },
+                    {
+                        events: [
+                            {type: "textMessage", text: "You: Hello there, mind if I ask what your order was?", faceHero:"npcE"},
+                            {type: "textMessage", text: "Jenny: um...honestly I forgot"},
+                            {type: "textMessage", text: "Why don't you just surprise me with something toasty"},
+                            {type: "textMessage", text: "You: Huh...yeah I got you."},
                         ]
                     },
                 ]
@@ -355,12 +491,22 @@ window.OverworldMaps = {
         cutsceneSpaces: {
             [utils.asGridCoord(0,5)] : [
                 {
+                    required: ["CAKE_DONE"],
                     events: [
                         {who: "npcC", type: "walk", direction: "up"},
                         {who: "npcC", type: "stand", direction: "up", time: 500},
-                        {type: "textMessage", text: "Hey, where you goin'?"},
-                        {type: "textMessage", text: "you're shift isn't over yet!"},
+                        {type: "textMessage", text: "I'll see you tomorrow!"},
                         {who: "hero", type: "walk", direction: "right"},
+                        {who: "npcC", type: "walk", direction: "down"},
+                    ]
+                },
+                {
+                    events: [
+                        {who: "npcC", type: "walk", direction: "up"},
+                        {who: "npcC", type: "stand", direction: "up", time: 500},
+                        {type: "textMessage", text: "Manager: Hey, where you goin'?"},
+                        {type: "textMessage", text: "you're shift isn't over yet!"},
+                        {who: "hero", type: "stand", direction: "down"},
                         {who: "npcC", type: "walk", direction: "down"},
                     ]
                 }
