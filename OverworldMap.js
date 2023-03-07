@@ -111,7 +111,12 @@ class OverworldMap {
         const hero = this.gameObjects["hero"];
         const match = this.cutsceneSpaces[ `${hero.x},${hero.y}` ];
         if (!this.isCutscenePlaying && match) {
-            this.startCutscene(match[0].events);
+            const relevantScenario = match.find(scenario => { // having trouble getting next cutscene
+                return (scenario.required || []).every(sf => {
+                    return playerState.storyFlags[sf]
+                })
+            })
+            relevantScenario && this.startCutscene(relevantScenario.events);
         }
     }
 
@@ -235,7 +240,7 @@ window.OverworldMaps = {
                 ],
                 talking: [
                     {
-                        required: ["CAKE_DONE"],
+                        required: ["COFFEE_DONE"],
                         events: [
                             {type: "textMessage", text: "Manager: Hey! How was your first day?", faceHero: "npcC"},
                             {type: "textMessage", text: "You: Pretty interesting. I think it went well!"},
@@ -244,16 +249,19 @@ window.OverworldMaps = {
                         ]
                     },
                     {
-                        required: ["COFFEE_DONE"],
+                        required: ["CAKE_DONE"],
                         events: [
                             {type: "textMessage", text: "Manager: Half your shift's over! Chop, chop!", faceHero: "npcC"},
+                            {type: "textMessage", text: "Come talk to me when you're done with service."},
                         ]
                     },
                     {
                         events: [
-                            {type: "textMessage", text: "Manager: If you have any questions,", faceHero:"npcC"},
-                            {type: "textMessage", text: "just don't ask me"},
-                            {type: "textMessage", text: "I'm too busy wiping these tables, haha", faceHero:"npcC"},
+                            {type: "textMessage", text: "Manager: Still figuring out who ordered what?", faceHero:"npcC"},
+                            {type: "textMessage", text: "everything you need is at the counter"},
+                            {type: "textMessage", text: "just gotta ask each person about their order..."},
+                            {who: "npcC", type: "stand", direction: "right"},
+                            {type: "textMessage", text: "I would help, but I'm too busy wiping these tables, haha"},
                             {who: "hero", type: "walk", direction: "up"},
                             {who: "npcC", type: "stand", direction: "down"},
                         ]
@@ -272,7 +280,7 @@ window.OverworldMaps = {
                     { type: "walk", direction: "left" }, 
                     { type: "stand", direction: "left", time: 2000 },
                     { type: "walk", direction: "left" }, 
-                    { type: "stand", direction: "up", time: 3000},
+                    { type: "stand", direction: "left", time: 3000},
                     { type: "walk", direction: "right" },
                     { type: "walk", direction: "right" },
                 ],
@@ -367,7 +375,8 @@ window.OverworldMaps = {
                 x: utils.withGrid(2),
                 y: utils.withGrid(4),
                 storyFlag: "USED_CAKE",
-                food: ["carefully pick up a slice of cake. Looks nice and fluffy"],
+                foodLine: ["carefully pick up a slice of cake. Looks nice and fluffy"],
+                food: "cake",
                 inventoryUpdate: "INVENTORY_FULL"
             },
             Donut:{
@@ -376,7 +385,8 @@ window.OverworldMaps = {
                 x: utils.withGrid(3),
                 y: utils.withGrid(4),
                 storyFlag: "USED_DONUT",
-                food: ["pick up a chocolate covered donut. You're tempted to take a bite"],
+                foodLine: ["pick up a chocolate covered donut. You're tempted to take a bite"],
+                food: "donut",
                 inventoryUpdate: "INVENTORY_FULL"
             },
             Bread:{
@@ -385,7 +395,8 @@ window.OverworldMaps = {
                 x: utils.withGrid(4),
                 y: utils.withGrid(4),
                 storyFlag: "USED_BREAD",
-                food: ["pick up a piece of bread. It's fresh out of the oven"],
+                foodLine: ["pick up a piece of bread. It's fresh out of the oven"],
+                food: "bread",
                 inventoryUpdate: "INVENTORY_FULL",
             },
             Coffee:{
@@ -394,7 +405,8 @@ window.OverworldMaps = {
                 x: utils.withGrid(5),
                 y: utils.withGrid(1),
                 storyFlag: "USED_COFFEE",
-                food: ["brew a pumpkin spice latte"],
+                foodLine: ["brew a pumpkin spice latte"],
+                food: "cup of coffee",
                 inventoryUpdate: "INVENTORY_FULL",
             }
         },
@@ -516,16 +528,6 @@ window.OverworldMaps = {
         cutsceneSpaces: {
             [utils.asGridCoord(0,5)] : [
                 {
-                    required: ["CAKE_DONE"],
-                    events: [
-                        {who: "npcC", type: "walk", direction: "up"},
-                        {who: "npcC", type: "stand", direction: "up", time: 500},
-                        {type: "textMessage", text: "I'll see you tomorrow!"},
-                        {who: "hero", type: "walk", direction: "right"},
-                        {who: "npcC", type: "walk", direction: "down"},
-                    ]
-                },
-                {
                     events: [
                         {who: "npcC", type: "walk", direction: "up"},
                         {who: "npcC", type: "stand", direction: "up", time: 500},
@@ -534,7 +536,17 @@ window.OverworldMaps = {
                         {who: "hero", type: "stand", direction: "down"},
                         {who: "npcC", type: "walk", direction: "down"},
                     ]
-                }
+                },
+                {
+                    required: ["COFFEE_DONE"],
+                    events: [
+                        {who: "npcC", type: "walk", direction: "up"},
+                        {who: "npcC", type: "stand", direction: "up", time: 500},
+                        {type: "textMessage", text: "I'll see you tomorrow!"},
+                        {who: "hero", type: "walk", direction: "right"},
+                        {who: "npcC", type: "walk", direction: "down"},
+                    ]
+                },
             ]
         }
     },

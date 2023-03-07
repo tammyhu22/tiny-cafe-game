@@ -95,6 +95,7 @@ class Overworld {
         {type: "textMessage", text: "The manager hands you a bundle of receipts - with no names"},
         {type: "textMessage", text: "You: um...how do I know who ordered what?"},
         {type: "textMessage", text: "Manager: I don't know! Just talk to the customers."},
+        {type: "textMessage", text: "Come talk to me when you're done serving everybody!"},
         { who: "npcC", type: "walk", direction: "left" },
         { who: "npcC", type: "walk", direction: "down" },
         { who: "npcC", type: "walk", direction: "down" },
