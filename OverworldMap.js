@@ -1,6 +1,8 @@
 class OverworldMap {
     constructor(config) {
-        this.gameObjects = config.gameObjects;
+        this.gameObjects = {}; // live objects are in here
+        this.configObjects = config.configObjects; // configuration content
+        
         this.cutsceneSpaces = config.cutsceneSpaces || {}; 
         this.walls = config.walls || {};
 
@@ -32,16 +34,38 @@ class OverworldMap {
 
     isSpaceTaken(currentX, currentY, direction) {
         const {x,y} = utils.nextPosition(currentX, currentY, direction);
-        return this.walls[`${x},${y}`] || false; // true if wall is there
+        if( this.walls[`${x},${y}`] ) {
+            return true;
+        } 
+
+        // check for game objects at this position
+        return Object.values(this.gameObjects).find(obj => {
+            if(obj.x === x && obj.y === y) { return true;}
+            if (obj.intentPosition && obj.intentPosition[0] === x && obj.intentPosition[1] === y) {
+                return true;
+            }
+            return false;
+        })
     }
 
     mountObjects() {
-        Object.keys(this.gameObjects).forEach(key => {
+        Object.keys(this.configObjects).forEach(key => {
             
-            let object = this.gameObjects[key];
+            let object = this.configObjects[key];
             object.id = key; // like hero, or npc1
-            // To do: determine if this object should actually mount, has an action happened
-            object.mount(this);
+
+            let instance;
+            if (object.type === "Person") {
+                instance = new Person(object);
+            }
+
+            if (object.type === "FoodStone") {
+                instance = new FoodStone(object);
+            }
+
+            this.gameObjects[key] = instance;
+            this.gameObjects[key].id = key;
+            instance.mount(this);
         })
     }
 
@@ -91,32 +115,21 @@ class OverworldMap {
         }
     }
 
-    addWall(x,y) {
-        this.walls[`${x},${y}`] = true;
-    }
-
-    removeWall(x,y) {
-        delete this.walls[`${x},${y}`]
-    }
-
-    moveWall(wasX,wasY, direction) {
-        this.removeWall(wasX, wasY);
-        const {x,y} = utils.nextPosition(wasX, wasY, direction); // new wall
-        this.addWall(x,y); // create new wall
-    }
 }
 
 window.OverworldMaps = {
     Cafe: {
         lowerSrc: "./images/mapLower.png",
         upperSrc:"./images/mapUpper.png",
-        gameObjects: {
-            hero: new Person({
+        configObjects: {
+            hero: {
+                type: "Person",
                 isPlayerControlled: true,
                 x: utils.withGrid(5),
                 y: utils.withGrid(6),
-            }),
-            npcA: new Person({ // KELLY THE COFFEE GIRL
+            },
+            npcA: { // KELLY THE COFFEE GIRL
+                type: "Person",
                 x: utils.withGrid(10),
                 y: utils.withGrid(8),
                 src: "./images/npc1.png",
@@ -164,15 +177,17 @@ window.OverworldMaps = {
                         ]
                     },
                 ]
-            }),
-            npcB: new Person({ // ERIC THE CAKE GUY
+            },
+            npcB: { // ERIC THE CAKE GUY
+                type: "Person",
                 x: utils.withGrid(10),
                 y: utils.withGrid(3),
                 src: "./images/npc3.png",
                 behaviorLoop: [ // idle behavior loop
                     { type: "walk", direction: "left" },
-                    { type: "stand", direction: "up", time: 800 },
+                    { type: "stand", direction: "up", time: 6000 },
                     { type: "walk", direction: "down" },
+                    { type: "stand", direction: "down", time: 3000 },
                     { type: "walk", direction: "right" }, 
                     { type: "walk", direction: "up" },
                 ],
@@ -208,13 +223,15 @@ window.OverworldMaps = {
                         ]
                     },
                 ]
-            }),
-            npcC: new Person({ // MANAGER
+            },
+            npcC: { // MANAGER
+                type: "Person",
                 x: utils.withGrid(2),
                 y: utils.withGrid(7),
                 src: "./images/erio.png",
                 behaviorLoop: [ // idle behavior loop
-                    { type: "stand", direction: "left" },
+                    { type: "stand", direction: "left", time: 3000},
+                    { type: "stand", direction: "right", time: 3000},
                 ],
                 talking: [
                     {
@@ -242,18 +259,20 @@ window.OverworldMaps = {
                         ]
                     },
                 ]
-            }),
-            npcD: new Person({
+            },
+            npcD: { // bald man
+                type: "Person",
                 x: utils.withGrid(13),
                 y: utils.withGrid(5),
                 src: "./images/npc2.png",
                 behaviorLoop: [ // idle behavior loop
                     { type: "walk", direction: "right" },
-                    { type: "stand", direction: "down", time: 800 },
+                    { type: "stand", direction: "down", time: 4000 },
                     { type: "walk", direction: "left" },
                     { type: "walk", direction: "left" }, 
+                    { type: "stand", direction: "left", time: 2000 },
                     { type: "walk", direction: "left" }, 
-                    { type: "stand", direction: "up", time: 300},
+                    { type: "stand", direction: "up", time: 3000},
                     { type: "walk", direction: "right" },
                     { type: "walk", direction: "right" },
                 ],
@@ -290,8 +309,9 @@ window.OverworldMaps = {
                         ]
                     },
                 ]
-            }),
-            npcE: new Person({
+            },
+            npcE: {
+                type: "Person",
                 x: utils.withGrid(8),
                 y: utils.withGrid(7),
                 src: "./images/npc7.png",
@@ -299,12 +319,13 @@ window.OverworldMaps = {
                     { type: "walk", direction: "left" },
                     { type: "walk", direction: "left" },
                     { type: "walk", direction: "up" },
-                    { type: "stand", direction: "up", time: 300},
+                    { type: "stand", direction: "up", time: 3000},
                     { type: "walk", direction: "right" },
                     { type: "walk", direction: "right" }, 
+                    { type: "stand", direction: "right", time: 4000 }, 
                     { type: "walk", direction: "right" }, 
                     { type: "walk", direction: "down" }, 
-                    { type: "stand", direction: "right", time: 600},
+                    { type: "stand", direction: "right", time: 6000},
                     { type: "walk", direction: "left" },
                 ],
                 talking: [
@@ -339,39 +360,43 @@ window.OverworldMaps = {
                         ]
                     },
                 ]
-            }),
-            Cake:new FoodStone({
+            },
+            Cake:{
+                type: "FoodStone",
                 src: "./images/cake.png",
                 x: utils.withGrid(2),
                 y: utils.withGrid(4),
                 storyFlag: "USED_CAKE",
-                food: ["cake"],
+                food: ["carefully pick up a slice of cake. Looks nice and fluffy"],
                 inventoryUpdate: "INVENTORY_FULL"
-            }),
-            Donut:new FoodStone({
+            },
+            Donut:{
+                type: "FoodStone",
                 src: "./images/donut.png",
                 x: utils.withGrid(3),
                 y: utils.withGrid(4),
                 storyFlag: "USED_DONUT",
-                food: ["donut"],
+                food: ["pick up a chocolate covered donut. You're tempted to take a bite"],
                 inventoryUpdate: "INVENTORY_FULL"
-            }),
-            Bread:new FoodStone({
+            },
+            Bread:{
+                type: "FoodStone",
                 src: "./images/bread.png",
                 x: utils.withGrid(4),
                 y: utils.withGrid(4),
                 storyFlag: "USED_BREAD",
-                food: ["bread"],
+                food: ["pick up a piece of bread. It's fresh out of the oven"],
                 inventoryUpdate: "INVENTORY_FULL",
-            }),
-            Coffee:new FoodStone({
+            },
+            Coffee:{
+                type: "FoodStone",
                 src: "./images/coffee.png",
                 x: utils.withGrid(5),
                 y: utils.withGrid(1),
                 storyFlag: "USED_COFFEE",
-                food: ["coffee"],
+                food: ["brew a pumpkin spice latte"],
                 inventoryUpdate: "INVENTORY_FULL",
-            })
+            }
         },
         walls: {
             // dynamic key -> evaluate to string

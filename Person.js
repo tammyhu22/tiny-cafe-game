@@ -3,6 +3,7 @@ class Person extends GameObject {
         super(config);
         this.movingProgressRemaining = 0; // how much left to go
         this.isStanding = false;
+        this.intentPosition = null; // null or [x,y]
 
         this.isPlayerControlled = config.isPlayerControlled || false;
 
@@ -49,8 +50,16 @@ class Person extends GameObject {
             }
 
             // ready to walk
-            state.map.moveWall(this.x, this.y, this.direction); // for every step hero is taking, wall moves with him
-            this.movingProgressRemaining = 16;  
+            // Wall(this.x, this.y, this.direction); // for every step hero is taking, wall moves with him
+            this.movingProgressRemaining = 16; 
+             
+            // add next position intent
+            const intentPosition = utils.nextPosition(this.x, this.y, this.direction)
+            this.intentPosition = [
+                intentPosition.x,
+                intentPosition.y
+            ]
+            
             this.updateSprite(state);
         }
 

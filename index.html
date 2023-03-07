@@ -9,11 +9,24 @@
     <link rel="stylesheet" href="./styles/TextMessage.css" />
     <link rel="stylesheet" href="./styles/TitleScreen.css" />
     <link rel="stylesheet" href="./styles/Hud.css" />
+    <link rel="stylesheet" href="./styles/KeyboardMenu.css" />
   </head>
   <body>
+
+    
     <div class = "title">
-      <h1>Tiny Cafe - a little game</h1>
-    </div>
+      <h1>Tiny Cafe - a little game
+        <audio id = "cafe-music" class = "music-player" controls autoplay loop controlsList="nodownload noplaybackrate">
+            <source src=
+            "./images/cafe-music.mp3" type="audio/mp3"> 
+        </audio>
+    
+        <script>
+          var audio = document.getElementById("cafe-music");
+          audio.volume = 0.5;
+        </script>
+        </div>
+      </h1>
 
     <div class="game-container">
       <canvas class="game-canvas" width="352" height="198"></canvas>
@@ -35,14 +48,18 @@
     <script src="./KeyPressListener.js" ></script>
     <script src="./RevealingText.js" ></script>
     <script src="./TitleScreen.js" ></script>
+    <script src="./KeyboardMenu.js" ></script>
 
     <script src="./init.js" ></script>
 
     <div class = "subtitle">
-      <h1>Welcome to your new barista life - use arrow keys to move. Enter to skip through dialogue and interact.</h1>
+      <h1>Welcome to your new barista life - use arrow/WASD keys to move. Enter to skip through dialogue and interact.</h1>
       <br/>
-      <h1>Game created and coded by Tammy Hu. NPCs modified from and originally created by Drew Conley. Map assets from </h1>
+      <h1>Game created and coded by Tammy Hu. NPCs modified from and originally created by Drew Conley.</h1>
+    
+    
     </div>
+
 
   </body>
 </html>
