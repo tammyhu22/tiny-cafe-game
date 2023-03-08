@@ -57,7 +57,7 @@ audio::-webkit-media-controls-enclosure {
 }
 
 .music-player {
-  transform: translateX(35%) translateY(30%);
+  transform: translateX(70%) translateY(30%);
 }
 
 
@@ -69,7 +69,7 @@ body {
   line-height: 1.5;
   padding: 4rem 1rem;
   color: #555; */
-  background:#333;
+  background:rgb(37, 39, 36);
   padding:0;
   margin:0;
 }
@@ -110,7 +110,7 @@ body {
   width: 70%;
   margin: auto;
   margin-left: 15%;
-  margin-top: 26rem;
+  margin-top: 27rem;
   margin-bottom: 0;
   font-size: 8px;
   font-size: xx-small;

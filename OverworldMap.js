@@ -183,7 +183,7 @@ window.OverworldMaps = {
                     },
                 ]
             },
-            npcB: { // ERIC THE CAKE GUY
+            npcB: { // SAM THE CAKE GUY
                 type: "Person",
                 x: utils.withGrid(10),
                 y: utils.withGrid(3),
@@ -200,7 +200,7 @@ window.OverworldMaps = {
                     {
                         required: ["USED_CAKE"],
                         events: [
-                            {type: "textMessage", text: "Eric: Oh thanks!", faceHero: "npcB"},
+                            {type: "textMessage", text: "Sam: Oh thanks!", faceHero: "npcB"},
                             {type: "textMessage", text: "You're new here right? Keep up the great work!"},
                             {type: "disableStoryFlag", flag: "USED_CAKE"},
                             {type: "disableStoryFlag", flag: "INVENTORY_FULL"},
@@ -210,20 +210,20 @@ window.OverworldMaps = {
                     {
                         required: ["INVENTORY_FULL"],
                         events: [
-                            {type: "textMessage", text: "Eric: um this isn't what I wanted", faceHero: "npcB"},
+                            {type: "textMessage", text: "Sam: um this isn't what I wanted", faceHero: "npcB"},
                         ]
                     },
                     {
                         required: ["CAKE_DONE"],
                         events: [
-                            {type: "textMessage", text: "Eric: This cake is great!", faceHero: "npcB"},
+                            {type: "textMessage", text: "Sam: This cake is great!", faceHero: "npcB"},
                         ]
                     },
                     {
                         events: [
                             {type: "textMessage", text: "You: Hey, sorry to bother you,", faceHero:"npcB"},
                             {type: "textMessage", text: "May I ask what you ordered?"},
-                            {type: "textMessage", text: "Eric: Uh..just one of those strawberry lemon cakes I think."},
+                            {type: "textMessage", text: "Sam: Uh..just one of those strawberry lemon cakes I think."},
                             {type: "textMessage", text: "You: Ok thanks!"},
                         ]
                     },
