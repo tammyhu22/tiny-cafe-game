@@ -240,7 +240,7 @@ window.OverworldMaps = {
                 ],
                 talking: [
                     {
-                        required: ["COFFEE_DONE"],
+                        required: ["ALL_DONE"],
                         events: [
                             {type: "textMessage", text: "Manager: Hey! How was your first day?", faceHero: "npcC"},
                             {type: "textMessage", text: "You: Pretty interesting. I think it went well!"},

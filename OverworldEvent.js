@@ -64,6 +64,9 @@ class OverworldEvent {
         console.log(window.playerState.storyFlags);
         window.playerState.currentFood = this.event.food;
         console.log(window.playerState.currentFood);
+        if (window.playerState.storyFlags["CAKE_DONE"] === true && window.playerState.storyFlags["COFFEE_DONE"] === true && window.playerState.storyFlags["DONUT_DONE"] === true && window.playerState.storyFlags["BREAD_DONE"] === true) {
+            window.playerState.storyFlags["ALL_DONE"] = true;
+        }
         // const display = new Hud();
         // display.init();
         resolve();
