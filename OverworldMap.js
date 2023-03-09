@@ -533,12 +533,12 @@ window.OverworldMaps = {
                         {who: "npcC", type: "stand", direction: "up", time: 500},
                         {type: "textMessage", text: "Manager: Hey, where you goin'?"},
                         {type: "textMessage", text: "you're shift isn't over yet!"},
-                        {who: "hero", type: "stand", direction: "down"},
+                        {who: "hero", type: "walk", direction: "right"},
                         {who: "npcC", type: "walk", direction: "down"},
                     ]
                 },
                 {
-                    required: ["COFFEE_DONE"],
+                    required: ["ALL_DONE"],
                     events: [
                         {who: "npcC", type: "walk", direction: "up"},
                         {who: "npcC", type: "stand", direction: "up", time: 500},
