@@ -275,10 +275,10 @@ window.OverworldMaps = {
                 src: "./images/npc2.png",
                 behaviorLoop: [ // idle behavior loop
                     { type: "walk", direction: "right" },
-                    { type: "stand", direction: "down", time: 4000 },
+                    { type: "stand", direction: "down", time: 8000 },
                     { type: "walk", direction: "left" },
                     { type: "walk", direction: "left" }, 
-                    { type: "stand", direction: "left", time: 2000 },
+                    { type: "stand", direction: "left", time: 4000 },
                     { type: "walk", direction: "left" }, 
                     { type: "stand", direction: "left", time: 3000},
                     { type: "walk", direction: "right" },
