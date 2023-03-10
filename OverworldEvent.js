@@ -61,9 +61,7 @@ class OverworldEvent {
 
     addStoryFlag(resolve) {
         window.playerState.storyFlags[this.event.flag] = true;
-        console.log(window.playerState.storyFlags);
         window.playerState.currentFood = this.event.food;
-        console.log(window.playerState.currentFood);
         if (window.playerState.storyFlags["CAKE_DONE"] === true && window.playerState.storyFlags["COFFEE_DONE"] === true && window.playerState.storyFlags["DONUT_DONE"] === true && window.playerState.storyFlags["BREAD_DONE"] === true) {
             window.playerState.storyFlags["ALL_DONE"] = true;
         }
@@ -74,7 +72,6 @@ class OverworldEvent {
 
     disableStoryFlag(resolve) {
         window.playerState.storyFlags[this.event.flag] = false;
-        console.log(window.playerState.storyFlags);
         window.playerState.currentFood = "";
         resolve();
     }

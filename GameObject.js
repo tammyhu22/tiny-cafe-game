@@ -19,7 +19,6 @@ class GameObject {
     }
 
     mount(map) {
-        console.log("mounting");
         this.isMounted = true;
 
         // if we have a behavior, kick off after a short delay
